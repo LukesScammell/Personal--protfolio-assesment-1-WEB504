@@ -1,0 +1,12 @@
+.grid{
+    display:grid; gap:18px;
+    grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+  }
+  .card{
+    background:var(--card);
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:var(--radius);
+    padding:16px;
+  }
+  .meta{ color: var(--muted); font-size:14px; }
+  

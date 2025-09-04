@@ -1,0 +1,8 @@
+header{
+  position: sticky; top: 0; z-index:20;
+  backdrop-filter: blur(10px);
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.brand{ font-weight:800; }
+.brand span{ color: var(--accent); }

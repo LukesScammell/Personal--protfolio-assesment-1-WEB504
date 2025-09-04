@@ -1,0 +1,27 @@
+/* TEMP DEBUG at the very top — you should see this immediately */
+body{background:#0b0e13 !important;color:#e8eef8 !important;font:16px/1.6 system-ui,Segoe UI,Inter,Roboto,Arial}
+
+/* Layout + helpers */
+main{max-width:1100px;margin:0 auto;padding:88px 20px 40px}
+.card{background:#121621;border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,.35);padding:24px;margin:16px 0}
+
+.visually-hidden{position:absolute!important;clip:rect(1px,1px,1px,1px);padding:0;border:0;height:1px;width:1px;overflow:hidden}
+.skip-link{position:absolute;left:-9999px;top:auto}
+.skip-link:focus{left:1rem;top:1rem;background:#000;color:#fff;padding:.5rem 1rem;border-radius:8px;z-index:1000}
+
+/* Header / nav (no JS) */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:20;
+  backdrop-filter:blur(10px);
+  background:linear-gradient(180deg,rgba(11,14,19,.9),rgba(11,14,19,.45) 70%,transparent);
+  border-bottom:1px solid #121828}
+.site-header .wrap{max-width:1100px;margin:0 auto;padding:.8rem 20px;display:flex;align-items:center;gap:1rem}
+.brand{display:flex;align-items:center;gap:.6rem;color:#e8eef8}
+.nav{list-style:none;margin-left:auto;padding:0;display:flex;gap:.5rem}
+.nav a{display:inline-block;padding:.5rem .8rem;border-radius:10px;color:#e8eef8}
+.nav a:hover,.nav a:focus{background:#151b2a}
+.nav a[aria-current="page"]{outline:2px solid #a48cff;outline-offset:2px}
+
+/* Utilities for components */
+.flex{display:flex;gap:.75rem;flex-wrap:wrap}
+.pill{background:#1a2030;border:1px solid #2a3550;border-radius:999px;padding:.55rem .9rem}
+.chip{background:#1a2030;color:#cdd9f2;padding:.35rem .6rem;border-radius:999px}
