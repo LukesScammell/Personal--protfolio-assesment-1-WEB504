@@ -128,9 +128,6 @@ body[data-page="contact"]  nav a[href="contact.html"]{
 }
 .btn:hover{background:color-mix(in srgb,var(--surface-2) 75%,white 25%)}
 
-/* Project screenshots */
-.card img{border-radius:12px;border:1px solid var(--border);margin-bottom:var(--space-sm)}
-
 /* ===== Skills ===== */
 .skills-groups{display:grid;gap:var(--space-md);grid-template-columns:repeat(2,minmax(0,1fr))}
 @media (max-width:740px){.skills-groups{grid-template-columns:1fr}}
