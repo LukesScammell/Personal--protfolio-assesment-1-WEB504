@@ -104,7 +104,7 @@ body[data-page="contact"]  nav a[href="contact.html"]{
 .cta:focus-visible{outline:3px solid var(--ring);outline-offset:3px}
 
 /* ===== Grids & Cards (Home featured + Projects) ===== */
-.grid{display:grid;gap:var(--space-lg);grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid{display:grid;gap:var(--space-lg);grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
 @media (max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:640px){.grid{grid-template-columns:1fr}}
 
@@ -129,7 +129,7 @@ body[data-page="contact"]  nav a[href="contact.html"]{
 .btn:hover{background:color-mix(in srgb,var(--surface-2) 75%,white 25%)}
 
 /* ===== Skills ===== */
-.skills-groups{display:grid;gap:var(--space-md);grid-template-columns:repeat(2,minmax(0,1fr))}
+.skills-groups{display:grid;gap:var(--space-md);grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
 @media (max-width:740px){.skills-groups{grid-template-columns:1fr}}
 .skill{margin-bottom:var(--space-sm)}
 .skill h4{font-size:1rem;margin-bottom:6px}
@@ -144,14 +144,14 @@ body[data-page="contact"]  nav a[href="contact.html"]{
   animation:growBar .8s ease-out both;
 }
 
-/* ===== Contact form (mailto) ===== */
-form.contact{
+/* ===== Contact, Auth and Project forms ===== */
+form.contact, #auth-container, #comment-section, #user-info, #project-form-section{
   display:grid;gap:var(--space-md);
   background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
   padding:var(--space-lg)
 }
 label{display:block;font-weight:600;margin-bottom:6px}
-input[type="text"],input[type="email"],textarea{
+input[type="text"],input[type="email"],input[type="password"],textarea,input[type="url"]{
   width:100%;padding:12px 14px;border-radius:12px;background:var(--surface-2);
   border:1px solid var(--border);color:var(--text);transition:border-color .18s ease,box-shadow .18s ease
 }
@@ -160,13 +160,13 @@ input:focus-visible,textarea:focus-visible{
   outline:3px solid var(--ring);outline-offset:2px;
   border-color:color-mix(in srgb,var(--accent) 55%, var(--border))
 }
-button[type="submit"]{
+button{
   padding:10px 14px;border-radius:12px;font-weight:700;border:none;cursor:pointer;
   background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#0a0c18;
   transition:filter .2s ease, transform .12s ease
 }
-button[type="submit"]:hover{filter:brightness(1.05)}
-button[type="submit"]:active{transform:translateY(1px)}
+button:hover{filter:brightness(1.05)}
+button:active{transform:translateY(1px)}
 
 /* ===== Footer ===== */
 .site-footer{
@@ -179,7 +179,7 @@ button[type="submit"]:active{transform:translateY(1px)}
   padding-block:var(--space-md);color:var(--muted);font-size:var(--fs-sm);gap:10px;flex-wrap:wrap
 }
 
-/* ===== Reveal animations (no JS) ===== */
+/* ===== Reveal animations ===== */
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @keyframes growBar{from{width:0}to{width:var(--level,0%)}}
 
@@ -198,7 +198,8 @@ button[type="submit"]:active{transform:translateY(1px)}
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition:none !important}
 }
-/* Tables (used on Skills page) */
+
+/* Tables (Skills page) */
 .table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
 .table th, .table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
 .table thead th { background: var(--surface-2); text-align: left; font-weight: 700; }

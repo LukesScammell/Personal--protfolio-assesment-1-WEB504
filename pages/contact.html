@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Contact — Luke Portfolio</title>
+  <title>Comments — Luke Portfolio</title>
   <link rel="stylesheet" href="../utils/variables.css" />
 </head>
 <body data-page="contact">
@@ -15,36 +15,81 @@
           <li><a class="nav-link" href="index.html">Home</a></li>
           <li><a class="nav-link" href="projects.html">Projects</a></li>
           <li><a class="nav-link" href="skills.html">Skills</a></li>
-          <li><a class="nav-link" href="contact.html">Contact</a></li>
+          <li><a class="nav-link" href="contact.html">Comments</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main class="container">
-    <h1 class="reveal">Contact</h1>
-    <p class="subtitle">This form opens your email client (no data is stored by the site).</p>
+    <h1 class="reveal">Comments</h1>
+    <p class="subtitle">Log in or register to post and manage comments in real time.</p>
 
-    <form class="contact reveal"
-          action="mailto:you@example.com"
-          method="post" enctype="text/plain">
-      <div>
-        <label for="name">Your name</label>
-        <input id="name" name="name" type="text" required>
-      </div>
+    <!-- User info and sign out -->
+    <div id="user-info" class="card" style="display:none; margin-bottom: var(--space-lg);"></div>
 
-      <div>
-        <label for="email">Email</label>
-        <input id="email" name="email" type="email" required>
-      </div>
+    <!-- Authentication forms -->
+    <div id="auth-container" class="card" style="margin-bottom: var(--space-lg);">
+      <!-- Login form -->
+      <form id="login-form">
+        <h2>Log In</h2>
+        <div>
+          <label for="login-email">Email</label>
+          <input id="login-email" name="email" type="email" required />
+        </div>
+        <div>
+          <label for="login-password">Password</label>
+          <input id="login-password" name="password" type="password" required />
+        </div>
+        <button type="submit">Log In</button>
+        <p class="message" style="color: var(--accent); margin-top: var(--space-sm);"></p>
+        <p style="margin-top: var(--space-sm);">
+          No account? <a href="#" id="show-register">Register here</a>
+        </p>
+      </form>
 
-      <div>
-        <label for="message">Message</label>
-        <textarea id="message" name="message" required></textarea>
-      </div>
+      <!-- Register form -->
+      <form id="register-form" style="display:none;">
+        <h2>Register</h2>
+        <div>
+          <label for="register-email">Email</label>
+          <input id="register-email" name="email" type="email" required />
+        </div>
+        <div>
+          <label for="register-password">Password</label>
+          <input id="register-password" name="password" type="password" required />
+        </div>
+        <div>
+          <label for="register-confirm">Confirm Password</label>
+          <input id="register-confirm" name="confirm" type="password" required />
+        </div>
+        <button type="submit">Register</button>
+        <p class="message" style="color: var(--accent); margin-top: var(--space-sm);"></p>
+        <p style="margin-top: var(--space-sm);">
+          Already have an account? <a href="#" id="show-login">Log in</a>
+        </p>
+      </form>
+    </div>
 
-      <button type="submit">Send email</button>
-    </form>
+    <!-- Comments section -->
+    <section id="comment-section" class="card">
+      <h2>Leave a comment</h2>
+      <!-- Comment form (shown when user is logged in) -->
+      <form id="comment-form" style="display:none;">
+        <div>
+          <label for="comment-content">Your Comment</label>
+          <textarea id="comment-content" name="content" required></textarea>
+        </div>
+        <button type="submit">Post Comment</button>
+      </form>
+      <h3>All comments</h3>
+      <ul id="comment-list"></ul>
+    </section>
   </main>
+
+  <!-- Firebase & app scripts -->
+  <script type="module" src="../scripts/firebaseConfig.js"></script>
+  <script type="module" src="../scripts/auth.js"></script>
+  <script type="module" src="../scripts/comments.js"></script>
 </body>
 </html>
