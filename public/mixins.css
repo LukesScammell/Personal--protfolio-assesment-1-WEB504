@@ -1,0 +1,2 @@
+.rounded{border-radius:var(--radius)}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px}
