@@ -194,6 +194,61 @@ button:active{transform:translateY(1px)}
 .reveal-stagger > *:nth-child(7){animation-delay:.35s}
 .reveal-stagger > *:nth-child(8){animation-delay:.40s}
 
+/* ===== Mobile Responsive Styles ===== */
+@media (max-width: 768px) {
+  /* Adjust base font size for better mobile readability */
+  body {
+    font-size: 15px;
+  }
+  
+  /* Improve header and navigation for mobile */
+  .site-header .nav {
+    flex-direction: column;
+    padding: var(--space-sm) 0;
+    gap: var(--space-sm);
+  }
+  
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  /* Adjust hero section spacing */
+  .hero {
+    padding-top: var(--space-lg);
+  }
+  
+  /* Make cards stack on mobile */
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Adjust form padding */
+  form.contact, #auth-container, #comment-section, #user-info, #project-form-section {
+    padding: var(--space-md);
+  }
+  
+  /* Improve button and input touch targets */
+  .btn, button, .cta {
+    padding: 12px 16px;
+  }
+  
+  /* Adjust footer layout */
+  .site-footer .foot {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-sm);
+  }
+  
+  /* Make tables scrollable on mobile */
+  .table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
 /* A11y: respect reduced motion */
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition:none !important}
