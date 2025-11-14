@@ -1,95 +1,108 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Comments — Luke Portfolio</title>
-  <link rel="stylesheet" href="/variables.css" />
+
+  <!-- Your base CSS -->
+  <link rel="stylesheet" href="variables.css"/>
+  <!-- <link rel="stylesheet" href="styles/main.css"/> -->
+  
+  <!-- Add reCAPTCHA script -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
-<body data-page="contact">
-  <header class="site-header">
-    <div class="container nav">
-      <div class="brand"><a href="index.html">Luke <span>Portfolio</span></a></div>
-      <nav aria-label="Primary">
-        <ul>
-          <li><a class="nav-link" href="index.html">Home</a></li>
-          <li><a class="nav-link" href="projects.html">Projects</a></li>
-          <li><a class="nav-link" href="skills.html">Skills</a></li>
-          <li><a class="nav-link" href="contact.html">Comments</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
 
-  <main class="container">
-    <h1 class="reveal">Comments</h1>
-    <p class="subtitle">Log in or register to post and manage comments in real time.</p>
+<body data-page="comments">
 
-    <!-- User info and sign out -->
-    <div id="user-info" class="card" style="display:none; margin-bottom: var(--space-lg);"></div>
-
-    <!-- Authentication forms -->
-    <div id="auth-container" class="card" style="margin-bottom: var(--space-lg);">
-      <!-- Login form -->
-      <form id="login-form">
-        <h2>Log In</h2>
-        <div>
-          <label for="login-email">Email</label>
-          <input id="login-email" name="email" type="email" required />
-        </div>
-        <div>
-          <label for="login-password">Password</label>
-          <input id="login-password" name="password" type="password" required />
-        </div>
-        <button type="submit">Log In</button>
-        <p class="message" style="color: var(--accent); margin-top: var(--space-sm);"></p>
-        <p style="margin-top: var(--space-sm);">
-          No account? <a href="#" id="show-register">Register here</a>
-        </p>
-      </form>
-
-      <!-- Register form -->
-      <form id="register-form" style="display:none;">
-        <h2>Register</h2>
-        <div>
-          <label for="register-email">Email</label>
-          <input id="register-email" name="email" type="email" required />
-        </div>
-        <div>
-          <label for="register-password">Password</label>
-          <input id="register-password" name="password" type="password" required />
-        </div>
-        <div>
-          <label for="register-confirm">Confirm Password</label>
-          <input id="register-confirm" name="confirm" type="password" required />
-        </div>
-        <button type="submit">Register</button>
-        <p class="message" style="color: var(--accent); margin-top: var(--space-sm);"></p>
-        <p style="margin-top: var(--space-sm);">
-          Already have an account? <a href="#" id="show-login">Log in</a>
-        </p>
-      </form>
+<header class="site-header">
+  <div class="container nav">
+    <div class="brand">
+      <a href="index.html">Luke <span>Portfolio</span></a>
     </div>
 
-    <!-- Comments section -->
-    <section id="comment-section" class="card">
-      <h2>Leave a comment</h2>
-      <!-- Comment form (shown when user is logged in) -->
-      <form id="comment-form" style="display:none;">
-        <div>
-          <label for="comment-content">Your Comment</label>
-          <textarea id="comment-content" name="content" required></textarea>
-        </div>
-        <button type="submit">Post Comment</button>
-      </form>
-      <h3>All comments</h3>
-      <ul id="comment-list"></ul>
-    </section>
-  </main>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="contact.html">Comments</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-  <!-- Firebase & app scripts -->
-  <script type="module" src="/firebaseConfig.js"></script>
-  <script type="module" src="/auth.js"></script>
-  <script type="module" src="/comments.js"></script>
+<main class="container">
+
+  <h1>Comments</h1>
+
+  <div id="user-info" class="card" style="display:none;"></div>
+
+  <div id="auth-container" class="card">
+    <!-- Login Form -->
+    <form id="login-form">
+      <h2>Log In</h2>
+
+      <label>Email</label>
+      <input name="email" type="email" required/>
+
+      <label>Password</label>
+      <input name="password" type="password" required/>
+
+      <button type="submit">Log In</button>
+
+      <p class="message"></p>
+      <p>No account? <a href="#" id="show-register">Register here</a></p>
+    </form>
+
+    <!-- Register Form -->
+    <form id="register-form" style="display:none;">
+      <h2>Register</h2>
+
+      <label>Email</label>
+      <input name="email" type="email" required/>
+
+      <label>Password</label>
+      <input name="password" type="password" required/>
+
+      <label>Confirm Password</label>
+      <input name="confirm" type="password" required/>
+
+      <button type="submit">Register</button>
+
+      <p class="message"></p>
+      <p>Already have an account? <a href="#" id="show-login">Log in</a></p>
+
+      <p style="font-size: 0.9rem;">
+        Email/password accounts must verify their email before posting comments.
+      </p>
+
+      <!-- reCAPTCHA widget -->
+      <div class="g-recaptcha" data-sitekey="6LdI3gssAAAAALE9ZRzyXFk4t0dLnvddFzPUpbk2"></div>
+    </form>
+  </div>
+
+  <!-- Comments Section -->
+  <section id="comment-section" class="card">
+    <h2>Leave a comment</h2>
+
+    <!-- Comment Form (shown when user is logged in AND email is verified) -->
+    <form id="comment-form" style="display:none;">
+      <label>Your Comment</label>
+      <textarea name="content" rows="4" required></textarea>
+      <button type="submit">Post Comment</button>
+    </form>
+
+    <h3>All comments</h3>
+    <ul id="comment-list"></ul>
+  </section>
+
+</main>
+
+<!-- Firebase & App scripts -->
+<script type="module" src="firebaseConfig.js"></script>
+<script type="module" src="auth.js"></script>
+<script type="module" src="comments.js"></script>
+
 </body>
 </html>

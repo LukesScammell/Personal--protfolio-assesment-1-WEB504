@@ -63,6 +63,7 @@
           <label for="register-confirm">Confirm Password</label>
           <input id="register-confirm" name="confirm" type="password" required />
         </div>
+    <div class="g-recaptcha" data-sitekey="6LdI3gssAAAAALE9ZRzyXFk4t0dLnvddFzPUpbk2"></div>
         <button type="submit">Register</button>
         <p class="message" style="color: var(--accent); margin-top: var(--space-sm);"></p>
         <p style="margin-top: var(--space-sm);">
@@ -88,8 +89,10 @@
   </main>
 
   <!-- Firebase & app scripts -->
+   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script type="module" src="../scripts/firebaseConfig.js"></script>
   <script type="module" src="../scripts/auth.js"></script>
   <script type="module" src="../scripts/comments.js"></script>
+  
 </body>
 </html>

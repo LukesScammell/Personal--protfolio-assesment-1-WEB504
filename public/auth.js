@@ -1,14 +1,21 @@
-// Authentication logic for login, registration and sign out.
-import { auth } from '/firebaseConfig.js';
+// Authentication logic for login, registration, Google registration, and sign out.
+// IMPORTANT: Must be a RELATIVE import (./ NOT / )
+import { auth } from './firebaseConfig.js';
+
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
   signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
   onAuthStateChanged,
   signOut,
 } from 'https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js';
 
-// Utility to show/hide UI elements
+// Google provider (for "Register with Google")
+const googleProvider = new GoogleAuthProvider();
+
+// Utility functions
 function showEl(el) {
   if (el) el.style.display = '';
 }
@@ -16,18 +23,17 @@ function hideEl(el) {
   if (el) el.style.display = 'none';
 }
 
-// Initialize authentication listeners
 export function initAuthUI() {
-  // Forms and containers may not exist on every page.
   const loginForm = document.querySelector('#login-form');
   const registerForm = document.querySelector('#register-form');
   const toggleToRegister = document.querySelector('#show-register');
   const toggleToLogin = document.querySelector('#show-login');
   const authContainer = document.querySelector('#auth-container');
   const userInfo = document.querySelector('#user-info');
+  const googleRegisterBtn = document.querySelector('#google-register');
   const logoutBtn = document.querySelector('#logout-btn');
 
-  // Toggle between login and registration forms
+  // FORM TOGGLE (login <-> register)
   if (toggleToRegister) {
     toggleToRegister.addEventListener('click', (e) => {
       e.preventDefault();
@@ -35,6 +41,7 @@ export function initAuthUI() {
       showEl(registerForm);
     });
   }
+
   if (toggleToLogin) {
     toggleToLogin.addEventListener('click', (e) => {
       e.preventDefault();
@@ -43,86 +50,110 @@ export function initAuthUI() {
     });
   }
 
-  // Register user
-  if (registerForm) {
-    registerForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = registerForm.querySelector('input[name="email"]').value;
-      const password = registerForm.querySelector('input[name="password"]').value;
-      const confirm = registerForm.querySelector('input[name="confirm"]').value;
-      const messageEl = registerForm.querySelector('.message');
-      if (password !== confirm) {
-        if (messageEl) messageEl.textContent = 'Passwords do not match.';
-        return;
-      }
+  // ⭐ GOOGLE REGISTRATION BUTTON ⭐
+  if (googleRegisterBtn) {
+    googleRegisterBtn.addEventListener('click', async () => {
       try {
-        const cred = await createUserWithEmailAndPassword(auth, email, password);
-        await sendEmailVerification(cred.user);
-        if (messageEl) {
-          messageEl.textContent =
-            'Registration successful! A verification email has been sent.';
-        }
-        // Reset form
-        registerForm.reset();
+        await signInWithPopup(auth, googleProvider);
+        // Google accounts ALWAYS have emailVerified = true
       } catch (err) {
-        if (messageEl) messageEl.textContent = err.message;
+        console.error('Google registration error:', err);
+        alert('Google registration failed: ' + err.message);
       }
     });
   }
 
-  // Log in user
+  // ⭐ EMAIL + PASSWORD REGISTRATION ⭐
+  if (registerForm) {
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = registerForm.querySelector('input[name="email"]').value;
+      const password = registerForm.querySelector('input[name="password"]').value;
+      const confirm = registerForm.querySelector('input[name="confirm"]').value;
+      const captchaResponse = grecaptcha.getResponse();
+      const messageEl = registerForm.querySelector('.message');
+
+      // CAPTCHA check
+      if (!captchaResponse) {
+        messageEl.textContent = "Please complete the CAPTCHA.";
+        return;
+      }
+
+      // Password match check
+      if (password !== confirm) {
+        messageEl.textContent = 'Passwords do not match.';
+        return;
+      }
+
+      try {
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        await sendEmailVerification(cred.user);
+
+        messageEl.textContent =
+          'Registration successful! A verification email has been sent.';
+
+        registerForm.reset();
+        grecaptcha.reset();
+
+      } catch (err) {
+        messageEl.textContent = err.message;
+      }
+    });
+  }
+
+  // ⭐ EMAIL + PASSWORD LOGIN ⭐
   if (loginForm) {
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+
       const email = loginForm.querySelector('input[name="email"]').value;
       const password = loginForm.querySelector('input[name="password"]').value;
       const messageEl = loginForm.querySelector('.message');
+
       try {
         await signInWithEmailAndPassword(auth, email, password);
         loginForm.reset();
       } catch (err) {
-        if (messageEl) messageEl.textContent = err.message;
+        messageEl.textContent = err.message;
       }
     });
   }
 
-  // Sign out
+  // ⭐ SIGN OUT ⭐
   if (logoutBtn) {
     logoutBtn.addEventListener('click', async () => {
       await signOut(auth);
     });
   }
 
-  // Listen for auth state changes
+  // ⭐ AUTH STATE LISTENER ⭐
   onAuthStateChanged(auth, (user) => {
-    // Update UI based on user's authentication state
     if (user) {
-      // Hide auth forms
       hideEl(authContainer);
-      // Show user info
+
       if (userInfo) {
         userInfo.innerHTML = `
           <span class="email">${user.email}</span>
           <button id="logout-btn" type="button">Sign out</button>
         `;
-        // Re-attach logout handler for dynamically inserted button
+
         const logoutButton = userInfo.querySelector('#logout-btn');
         if (logoutButton) {
-          logoutButton.addEventListener('click', async () => {
-            await signOut(auth);
-          });
+          logoutButton.addEventListener('click', async () => await signOut(auth));
         }
-        userInfo.style.display = '';
+
+        showEl(userInfo);
       }
+
     } else {
-      // Not logged in: show forms and hide user info
       showEl(authContainer);
-      if (userInfo) hideEl(userInfo);
+      hideEl(userInfo);
     }
-    // Dispatch custom event so other modules can react
-    document.dispatchEvent(new CustomEvent('authChanged', { detail: { user } }));
+
+    // Notify comments.js that auth changed
+    document.dispatchEvent(new CustomEvent("authChanged", { detail: { user } }));
   });
 }
 
-// Immediately call init when this module is imported
 initAuthUI();
