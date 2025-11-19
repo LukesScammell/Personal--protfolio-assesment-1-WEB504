@@ -14,18 +14,27 @@ import {
 
 function renderCommentItem(parent, id, data, currentUser) {
   const { author, content, timestamp, uid } = data;
+
+  // Accessible list item
   const li = document.createElement('li');
   li.className = 'comment';
+  li.setAttribute('role', 'listitem');
+
   const header = document.createElement('div');
   header.className = 'comment-header';
+  header.setAttribute('role', 'group');
+  header.setAttribute('aria-label', 'Comment header');
+
   const nameSpan = document.createElement('strong');
   nameSpan.textContent = author || 'Anonymous';
+
   const timeSpan = document.createElement('span');
   timeSpan.className = 'timestamp';
-  // Convert Firestore timestamp to readable date if available
+
   if (timestamp && typeof timestamp.toDate === 'function') {
     timeSpan.textContent = new Date(timestamp.toDate()).toLocaleString();
   }
+
   header.appendChild(nameSpan);
   header.appendChild(timeSpan);
   li.appendChild(header);
@@ -38,10 +47,15 @@ function renderCommentItem(parent, id, data, currentUser) {
   if (currentUser && currentUser.uid === uid) {
     const actions = document.createElement('div');
     actions.className = 'comment-actions';
+
     const editBtn = document.createElement('button');
     editBtn.textContent = 'Edit';
+    editBtn.setAttribute('aria-label', 'Edit this comment');
+
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'Delete';
+    deleteBtn.setAttribute('aria-label', 'Delete this comment');
+
     actions.appendChild(editBtn);
     actions.appendChild(deleteBtn);
     li.appendChild(actions);
@@ -52,18 +66,40 @@ function renderCommentItem(parent, id, data, currentUser) {
       if (newContent !== null && newContent.trim() !== '') {
         const commentRef = doc(db, 'comments', id);
         updateDoc(commentRef, { content: newContent });
+
+        // Announce the update for accessibility
+        announceChange('Comment updated.');
       }
     });
+
     // Delete comment
     deleteBtn.addEventListener('click', () => {
       if (confirm('Delete this comment?')) {
         const commentRef = doc(db, 'comments', id);
         deleteDoc(commentRef);
+        announceChange('Comment deleted.');
       }
     });
   }
 
   parent.appendChild(li);
+}
+
+// Live region for accessibility announcements
+function announceChange(message) {
+  let liveRegion = document.getElementById('comments-live-region');
+
+  if (!liveRegion) {
+    liveRegion = document.createElement('div');
+    liveRegion.id = 'comments-live-region';
+    liveRegion.setAttribute('aria-live', 'polite');
+    liveRegion.setAttribute('role', 'status');
+    liveRegion.style.position = 'absolute';
+    liveRegion.style.left = '-9999px';
+    document.body.appendChild(liveRegion);
+  }
+
+  liveRegion.textContent = message;
 }
 
 export function initComments() {
@@ -79,12 +115,16 @@ export function initComments() {
   if (commentForm) {
     commentForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+
       const content = commentForm.querySelector('textarea[name="content"]').value;
+
       if (!auth.currentUser) {
         alert('You must be logged in to post comments.');
         return;
       }
+
       if (content.trim() === '') return;
+
       try {
         await addDoc(collection(db, 'comments'), {
           uid: auth.currentUser.uid,
@@ -92,14 +132,17 @@ export function initComments() {
           content,
           timestamp: serverTimestamp(),
         });
+
         commentForm.reset();
+
+        // Announce the addition for accessibility
+        announceChange('New comment posted.');
       } catch (err) {
         console.error(err);
       }
     });
   }
 
-  // Listen for auth changes to show or hide comment form
   document.addEventListener('authChanged', (e) => {
     const user = e.detail.user;
     if (commentForm) {
@@ -107,19 +150,20 @@ export function initComments() {
     }
   });
 
-  // Real-time updates for comments
   const q = query(collection(db, 'comments'), orderBy('timestamp', 'asc'));
+
   onSnapshot(q, (snapshot) => {
-    // Clear existing
     if (commentList) {
       commentList.innerHTML = '';
     }
+
     const currentUser = auth.currentUser;
+
     snapshot.forEach((docSnap) => {
       renderCommentItem(commentList, docSnap.id, docSnap.data(), currentUser);
     });
   });
 }
 
-// Automatically initialise when module is loaded
+// Auto-init
 initComments();

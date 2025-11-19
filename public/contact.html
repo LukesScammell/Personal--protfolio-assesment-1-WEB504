@@ -6,7 +6,7 @@
   <title>Comments — Luke Portfolio</title>
 
   <!-- Your base CSS -->
-  <link rel="stylesheet" href="variables.css"/>
+  <link rel="stylesheet" href="/variables.css"/>
   <!-- <link rel="stylesheet" href="styles/main.css"/> -->
   
   <!-- Add reCAPTCHA script -->
@@ -21,14 +21,14 @@
       <a href="index.html">Luke <span>Portfolio</span></a>
     </div>
 
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="skills.html">Skills</a></li>
-        <li><a href="contact.html">Comments</a></li>
-      </ul>
-    </nav>
+   <nav>
+  <ul>
+    <li><a class="nav-link" href="index.html">Home</a></li>
+    <li><a class="nav-link" href="projects.html">Projects</a></li>
+    <li><a class="nav-link" href="skills.html">Skills</a></li>
+    <li><a class="nav-link" href="contact.html">Comments</a></li>
+  </ul>
+</nav>
   </div>
 </header>
 
@@ -51,7 +51,7 @@
 
       <button type="submit">Log In</button>
 
-      <p class="message"></p>
+      <p class="message" id="login-message" aria-live="polite"></p>
       <p>No account? <a href="#" id="show-register">Register here</a></p>
     </form>
 
@@ -59,18 +59,19 @@
     <form id="register-form" style="display:none;">
       <h2>Register</h2>
 
-      <label>Email</label>
-      <input name="email" type="email" required/>
+      <label for="login-email">Email</label>
+      <input id="login-email" name="email" type="email" required/>
 
-      <label>Password</label>
-      <input name="password" type="password" required/>
+      <label for="login-password">Password</label>
+      <input id="login-password" name="password" type="password" required/>
+
 
       <label>Confirm Password</label>
       <input name="confirm" type="password" required/>
 
       <button type="submit">Register</button>
 
-      <p class="message"></p>
+      <p class="message" id="register-message" aria-live="polite"></p>
       <p>Already have an account? <a href="#" id="show-login">Log in</a></p>
 
       <p style="font-size: 0.9rem;">
@@ -104,5 +105,11 @@
 <script type="module" src="auth.js"></script>
 <script type="module" src="comments.js"></script>
 
+<footer class="site-footer">
+    <div class="container foot">
+      <span>© 2025 Luke Scammell</span>
+      <span>Built with pure HTML + CSS (no JS)</span>
+    </div>
+  </footer>
 </body>
 </html>
