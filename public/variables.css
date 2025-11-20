@@ -1,25 +1,24 @@
 /* =========================================================
-   Global Neon Portfolio UI – FULL THEME UPDATE
-   Clean, modern, neon gradients, smooth animations
+   Global Neon Portfolio UI – FIXED + CLEANED VERSION
+   Strong neon effects, full-page background, no repeats
    ========================================================= */
 
 /* Reset */
 *,*::before,*::after{box-sizing:border-box}
-html,body{height:100%}
-body,h1,h2,h3,h4,p,ul,ol,figure{margin:0}
+html,body{height:100%;margin:0;padding:0}
 img{display:block;max-width:100%}
 a{text-decoration:none;color:inherit}
 input,button,textarea,select{font:inherit;color:inherit}
 
 /* ---------------------------------------------------------
-   Color Tokens – NEW NEON PALETTE
+   Color Tokens – Neon Palette
    --------------------------------------------------------- */
 :root{
   --bg:#070813;
   --surface:#0d0f1c;
   --surface-2:#131628;
 
-  --border:rgba(255,255,255,.07);
+  --border:rgba(255,255,255,.08);
   --text:#e9ecf4;
   --muted:#9aa4c1;
 
@@ -28,12 +27,14 @@ input,button,textarea,select{font:inherit;color:inherit}
   --accent-2:#7209b7; /* neon purple */
   --accent-3:#f72585; /* neon pink */
 
-  /* Glow Ring */
-  --ring:rgba(76,201,240,.45);
+  /* Strong glow */
+  --ring:rgba(76,201,240,.75);
+  --ring-strong:0 0 15px rgba(76,201,240,.65), 
+                 0 0 25px rgba(114,9,183,.45),
+                 0 0 35px rgba(247,37,133,.35);
 
   --radius:16px;
-  --shadow:0 10px 28px rgba(0,0,0,.45);
-
+  --shadow:0 10px 28px rgba(0,0,0,.5);
   --maxw:1100px;
 
   --space-xs:6px;
@@ -51,35 +52,58 @@ input,button,textarea,select{font:inherit;color:inherit}
 html{color-scheme:dark}
 
 /* ---------------------------------------------------------
-   Body Background – NEW MULTI-NEON GLOW
+   Body Background – FIXED full-page neon glow
    --------------------------------------------------------- */
 body{
   background:
-    radial-gradient(900px 500px at 10% -10%, rgba(76,201,240,.22), transparent 60%),
-    radial-gradient(900px 500px at 120% 10%, rgba(247,37,133,.18), transparent 60%),
-    radial-gradient(700px 400px at 50% 120%, rgba(114,9,183,.14), transparent 65%),
+    radial-gradient(900px 500px at 10% -10%, rgba(76,201,240,.25), transparent 60%),
+    radial-gradient(900px 500px at 120% 10%, rgba(247,37,133,.20), transparent 60%),
+    radial-gradient(700px 400px at 50% 120%, rgba(114,9,183,.18), transparent 70%),
     linear-gradient(#050611,#0b0d19);
+  background-repeat:no-repeat;
+  background-size:cover !important;
+  background-attachment:fixed;
+
   color:var(--text);
   font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
 
+  min-height:100vh;
   display:flex;
   flex-direction:column;
-  min-height:100vh;
 }
 
-/* Helpers */
-.container{width:min(100%,var(--maxw));margin-inline:auto;padding-inline:var(--space-md)}
-main{padding-block:var(--space-xl)}
-section{margin-block:var(--space-xl)}
-.subtitle{color:var(--muted);font-size:var(--fs-sm)}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+/* ---------------------------------------------------------
+   Layout Helpers
+   --------------------------------------------------------- */
+.container{
+  width:min(100%,var(--maxw));
+  margin-inline:auto;
+  padding-inline:var(--space-md);
+}
 
-/* Typography */
-h1{font-size:var(--fs-h1);line-height:1.15;font-weight:800}
-h2{font-size:var(--fs-h2);line-height:1.25;margin-bottom:var(--space-sm);font-weight:700}
+main{
+  padding-block:var(--space-xl);
+  flex:1; /* ensures footer sits naturally below content */
+}
+
+section{margin-block:var(--space-xl)}
+
+.subtitle{color:var(--muted);font-size:var(--fs-sm)}
+
+/* Screen reader only */
+.sr-only{
+  position:absolute;width:1px;height:1px;margin:-1px;padding:0;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
 
 /* ---------------------------------------------------------
-   Neon Gradient Hero Text
+   Typography
+   --------------------------------------------------------- */
+h1{font-size:var(--fs-h1);line-height:1.15;font-weight:800;margin:0}
+h2{font-size:var(--fs-h2);line-height:1.25;font-weight:700;margin-bottom:var(--space-sm)}
+
+/* ---------------------------------------------------------
+   Hero Gradient Text
    --------------------------------------------------------- */
 .hero h1{
   background:linear-gradient(115deg,var(--accent),var(--accent-2),var(--accent-3));
@@ -88,7 +112,7 @@ h2{font-size:var(--fs-h2);line-height:1.25;margin-bottom:var(--space-sm);font-we
 }
 
 /* ---------------------------------------------------------
-   Header & Navigation – New Neon Chip Nav
+   Header & Navigation – FIXED underline + strong hover
    --------------------------------------------------------- */
 .site-header{
   position:sticky;top:0;z-index:50;
@@ -96,31 +120,43 @@ h2{font-size:var(--fs-h2);line-height:1.25;margin-bottom:var(--space-sm);font-we
   background:rgba(10,12,24,.55);
   border-bottom:1px solid var(--border);
 }
+
 .site-header .nav{
-  display:flex;justify-content:space-between;align-items:center;
-  padding-block:var(--space-sm)
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding-block:var(--space-sm);
 }
-.brand a{font-weight:800;font-size:1.2rem}
+
+.brand a{font-weight:800;font-size:1.25rem}
 .brand span{color:var(--accent)}
 
-nav ul{list-style:none;display:flex;gap:18px;margin:0;padding:0}
+nav ul{
+  list-style:none;
+  display:flex;
+  gap:18px;
+  padding:0;
+  margin:0;
+}
 
 .nav-link{
+  position:relative; /* REQUIRED FIX */
   display:inline-block;
   padding:8px 16px;
   border-radius:999px;
-  background:rgba(255,255,255,.03);
+  background:rgba(255,255,255,.04);
   color:var(--muted);
-  transition:background .2s,box-shadow .2s,color .2s,transform .2s;
+  transition:all .22s ease;
 }
+
 .nav-link:hover{
   background:rgba(255,255,255,.1);
-  box-shadow:0 0 0 1px var(--accent);
   color:#fff;
+  box-shadow:var(--ring-strong); /* strong neon effect */
+  transform:translateY(-2px);
 }
-.nav-link:active{transform:translateY(1px)}
 
-/* neon underline */
+/* Neon underline */
 .nav-link::after{
   content:"";
   position:absolute;
@@ -129,59 +165,63 @@ nav ul{list-style:none;display:flex;gap:18px;margin:0;padding:0}
   background:var(--accent);
   transform:scaleX(0);
   transform-origin:left;
-  transition:transform .2s ease;
+  transition:transform .25s ease;
 }
 .nav-link:hover::after,
 .nav-link:focus-visible::after{
   transform:scaleX(1);
 }
 
-/* active page */
+/* Active page highlight */
 body[data-page="home"] nav a[href="index.html"],
 body[data-page="projects"] nav a[href="projects.html"],
 body[data-page="skills"] nav a[href="skills.html"],
 body[data-page="contact"] nav a[href="contact.html"]{
-  color:#fff;
-  background:rgba(76,201,240,.18);
-  box-shadow:0 0 0 1px rgba(76,201,240,.4);
+  background:rgba(76,201,240,.25);
+  color:white;
+  box-shadow:var(--ring-strong);
 }
 
 /* ---------------------------------------------------------
-   Hero CTA
+   CTA Button — Strong Neon
    --------------------------------------------------------- */
 .cta{
   display:inline-block;
   margin-top:var(--space-md);
   padding:12px 20px;
   border-radius:999px;
+  font-weight:700;
   background:linear-gradient(120deg,var(--accent),var(--accent-2),var(--accent-3));
   background-size:200% 100%;
   color:#0b0d19;
-  font-weight:700;
-  box-shadow:var(--shadow);
-  transition:background-position .25s ease,filter .2s,transform .15s;
+  box-shadow:var(--ring-strong);
+  transition:all .25s ease;
 }
 .cta:hover{
   background-position:100% 0;
-  filter:brightness(1.08);
+  transform:translateY(-3px);
+  filter:brightness(1.12);
 }
 
 /* ---------------------------------------------------------
-   Cards – Neon Glow Update
+   Cards – Stronger Glow + Cleaned Hover
    --------------------------------------------------------- */
-.grid{display:grid;gap:var(--space-lg);grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.grid{
+  display:grid;
+  gap:var(--space-lg);
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+}
 
 .card{
   position:relative;
-  background:linear-gradient(135deg,rgba(255,255,255,.02),rgba(255,255,255,.00));
-  border-radius:var(--radius);
   padding:var(--space-lg);
+  border-radius:var(--radius);
+  background:linear-gradient(135deg,rgba(255,255,255,.02),rgba(255,255,255,0));
   border:1px solid var(--border);
   box-shadow:0 1px 0 rgba(255,255,255,.03) inset;
-  transition:transform .18s,box-shadow .18s,border-color .18s;
+  transition:all .25s ease;
 }
 
-/* neon accent strip */
 .card::before{
   content:"";
   position:absolute;
@@ -193,91 +233,119 @@ body[data-page="contact"] nav a[href="contact.html"]{
 }
 
 .card:hover{
-  transform:translateY(-4px);
-  box-shadow:0 18px 36px rgba(0,0,0,.55);
+  transform:translateY(-6px);
   border-color:var(--accent);
-  background:linear-gradient(135deg,rgba(76,201,240,.12),rgba(114,9,183,.12),rgba(247,37,133,.12));
+  box-shadow:var(--ring-strong);
+  background:linear-gradient(135deg,
+    rgba(76,201,240,.15),
+    rgba(114,9,183,.15),
+    rgba(247,37,133,.15)
+  );
 }
 
-.card .meta{color:var(--muted);font-size:var(--fs-sm)}
+.card .meta{
+  color:var(--muted);
+  font-size:var(--fs-sm);
+}
 
 /* ---------------------------------------------------------
-   Buttons
+   Buttons – Strong Neon
    --------------------------------------------------------- */
 button{
   padding:10px 14px;
   border-radius:12px;
-  font-weight:700;
   border:none;
+  font-weight:700;
   cursor:pointer;
   background:linear-gradient(120deg,var(--accent),var(--accent-2),var(--accent-3));
   background-size:200% 100%;
   color:#070813;
-  transition:background-position .25s ease,filter .2s ease,transform .1s ease;
+  box-shadow:var(--ring-strong);
+  transition:all .25s ease;
 }
 button:hover{
   background-position:100% 0;
-  filter:brightness(1.08);
+  transform:translateY(-2px);
+  filter:brightness(1.1);
 }
-button:active{transform:translateY(1px)}
+button:active{
+  transform:translateY(1px);
+}
 
 /* ---------------------------------------------------------
    Forms
    --------------------------------------------------------- */
 form.contact{
-  display:grid;gap:var(--space-md);
-  background:var(--surface);padding:var(--space-lg);
-  border-radius:var(--radius);border:1px solid var(--border)
+  display:grid;
+  gap:var(--space-md);
+  background:var(--surface);
+  padding:var(--space-lg);
+  border-radius:var(--radius);
+  border:1px solid var(--border);
 }
+
 input,textarea{
-  width:100%;padding:12px 14px;
-  background:var(--surface-2);border:1px solid var(--border);
-  border-radius:12px;color:var(--text);
-  transition:border-color .2s,box-shadow .2s;
+  width:100%;
+  padding:12px 14px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:12px;
+  color:var(--text);
+  transition:border-color .25s,box-shadow .25s;
 }
+
 input:focus-visible,textarea:focus-visible{
   outline:3px solid var(--ring);
   border-color:var(--accent);
+  box-shadow:var(--ring-strong);
 }
 
 /* ---------------------------------------------------------
-   Footer 
+   Footer
    --------------------------------------------------------- */
 .site-footer{
   border-top:1px solid var(--border);
-  background:linear-gradient(180deg,rgba(5,6,17,.3),rgba(5,6,17,.6));
+  background:linear-gradient(180deg,rgba(5,6,17,.4),rgba(5,6,17,.75));
   padding-block:var(--space-lg);
 }
 .site-footer .foot{
-  display:flex;justify-content:space-between;align-items:center;
-  color:var(--muted);font-size:var(--fs-sm);
-  flex-wrap:wrap;gap:10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:10px;
+  color:var(--muted);
+  font-size:var(--fs-sm);
 }
 
 /* ---------------------------------------------------------
    Animations
    --------------------------------------------------------- */
 @keyframes fadeUp{
-  from{opacity:0;transform:translateY(8px)}
+  from{opacity:0;transform:translateY(10px)}
   to{opacity:1;transform:translateY(0)}
 }
-.reveal{opacity:0;animation:fadeUp .6s ease-out both}
-
-/* Reduced motion */
-@media(prefers-reduced-motion:reduce){
-  *{animation:none !important;transition:none !important}
+.reveal{
+  opacity:0;
+  animation:fadeUp .6s ease-out both;
 }
 
 /* ---------------------------------------------------------
    Responsive
    --------------------------------------------------------- */
 @media(max-width:768px){
-  .site-header .nav{flex-direction:column;gap:var(--space-sm)}
-  nav ul{flex-wrap:wrap;justify-content:center}
-
+  .site-header .nav{
+    flex-direction:column;
+    gap:var(--space-sm);
+  }
+  nav ul{
+    flex-wrap:wrap;
+    justify-content:center;
+  }
   .grid{grid-template-columns:1fr}
-  
   form.contact{padding:var(--space-md)}
-
-  .site-footer .foot{text-align:center;flex-direction:column}
+  .site-footer .foot{
+    text-align:center;
+    flex-direction:column;
+  }
 }

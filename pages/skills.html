@@ -1,16 +1,19 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-page="skills">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Skills — Luke Portfolio</title>
-  <link rel="stylesheet" href="../utils/variables.css" />
+  <link rel="stylesheet" href="variables.css">
 </head>
+
 <body data-page="skills">
+
+  <!-- Header -->
   <header class="site-header">
     <div class="container nav">
-      <div class="brand"><a href="index.html">Luke <span>Portfolio</span></a></div>
-      <nav aria-label="Primary">
+      <div class="brand"><a href="index.html">Luke<span>Portfolio</span></a></div>
+      <nav>
         <ul>
           <li><a class="nav-link" href="index.html">Home</a></li>
           <li><a class="nav-link" href="projects.html">Projects</a></li>
@@ -21,119 +24,75 @@
     </div>
   </header>
 
-  <main class="container reveal">
-    <section class="card">
-      <h1>My Skills</h1>
-      <p class="subtitle">What I work with the most, rated by my own confidence and experience.</p>
+  <main class="container">
+    <section>
+      <h1>Skills</h1>
+      <p class="subtitle">A summary of my technical skills and academic background</p>
     </section>
 
-    <section class="skills-groups reveal-stagger">
-      <section class="card">
-        <h2>Web</h2>
-        <div class="skill">
-          <h4>HTML/CSS</h4>
-          <div class="bar"><span style="--level: 92%"></span></div>
-        </div>
-        <div class="skill">
-          <h4>Accessibility</h4>
-          <div class="bar"><span style="--level: 70%"></span></div>
-        </div>
-      </section>
-
-      <section class="card">
-        <h2>Electron / Node</h2>
-        <div class="skill">
-          <h4>Electron</h4>
-          <div class="bar"><span style="--level: 80%"></span></div>
-        </div>
-        <div class="skill">
-          <h4>Node basics</h4>
-          <div class="bar"><span style="--level: 65%"></span></div>
-        </div>
-      </section>
-
-      <section class="card">
-        <h2>Python / TTS</h2>
-        <div class="skill">
-          <h4>Python</h4>
-          <div class="bar"><span style="--level: 75%"></span></div>
-        </div>
-        <div class="skill">
-          <h4>OSC / VTuber tooling</h4>
-          <div class="bar"><span style="--level: 68%"></span></div>
-        </div>
-      </section>
-
-      <section class="card">
-        <h2>Testing</h2>
-        <div class="skill">
-          <h4>Playwright</h4>
-          <div class="bar"><span style="--level: 70%"></span></div>
-        </div>
-        <div class="skill">
-          <h4>Unit tests</h4>
-          <div class="bar"><span style="--level: 60%"></span></div>
-        </div>
-      </section>
-    </section>
-
-    <section class="card">
-      <h2>My Certifications</h2>
-      <ul>
-        <li>Achieved a national certificate of information technology at NMIT</li>
-        <li>Completed Level 3 NCEA</li>
-        <li>Passed Level 2 NCEA (November 2023)</li>
-        <li>Merit Endorsement for Level 1 NCEA</li>
-        <li>Year 10 Excellence Award – Digital Technology Advanced</li>
-        <li>Year 10 Junior Leader</li>
-        <li>2021 Waimea College ‘Our House’ Production – cast, set assembly and painting</li>
-        <li>2023 Jazz band keyboard player</li>
-        <li>2021 Rockquest</li>
-        <li>2020 Reading Cup Competition – second place</li>
-        <li>2020 Strive award – outstanding effort and attitude during Covid-19 lockdown in Yr 9 English</li>
-        <li>2021 Strive award – demonstrating Waimea College values during Covid-19 lockdown</li>
-        <li>St John cadet (3 years)</li>
-        <li>Principal’s Prizegiving – Level 3 Design & Visual Communications</li>
-        <li>Arts Awards – Service to Jazz</li>
-      </ul>
-    </section>
-
-    <section class="card">
+    <section>
       <h2>Job Experience</h2>
-      <ul>
-        <li>Trolley Collector at Fresh Choice Richmond (80 hours over four weeks, summer holidays 21/22)</li>
-        <li>2021 Waimea College ‘Our House’ Production – cast, set assembly and painting</li>
-        <li>2023 Jazz band keyboard player</li>
-        <li>Backyard renovation: demolition, builder’s labouring, landscaping (digging, planting, concrete work, fence painting)</li>
-        <li>Lawn mowing; wood chopping and stacking</li>
-        <li>Volunteer server at the Christmas charity lunch 2019</li>
-        <li>Assisted setup of technical equipment for school house sports day</li>
-        <li>Cooking experience</li>
-      </ul>
+
+      <div class="card">
+        <ul>
+          <li>Trolley Collector at Fresh Choice Richmond</li>
+          <li>2023 Valmate College Dux</li>
+          <li>2023 Jazz band keyboard player</li>
+          <li>Blackpower demolition work experience</li>
+          <li>Volunteer at Christmas charity lunch 2019</li>
+          <li>School sports day technical setup</li>
+          <li>Cooking experience</li>
+        </ul>
+      </div>
     </section>
-    <section class="card">
+
+    <section>
       <h2>NCEA Subjects</h2>
-      <p class="subtitle">Subjects studied at Level 1 (2022) and Level 2 (2023).</p>
-    
-      <table class="table ncea">
-        <caption class="sr-only">NCEA subjects for Level 1 (2022) and Level 2 (2023)</caption>
+      <p class="subtitle">Subjects studied at Level 1 (2022) and Level 2 (2023)</p>
+
+      <table class="ncea-table">
         <thead>
           <tr>
-            <th scope="col">Level 1 NCEA — 2022</th>
-            <th scope="col">Level 2 NCEA — 2023</th>
+            <th>Year</th>
+            <th>Subjects</th>
           </tr>
         </thead>
+
         <tbody>
-          <tr><td>English</td><td>English</td></tr>
-          <tr><td>Maths Pure</td><td>Maths Pure</td></tr>
-          <tr><td>Digital Technology Development and Coding</td><td>Digital Technology Development and Coding</td></tr>
-          <tr><td>Design and Visual Communications (Tech Drawing)</td><td>Design and Visual Communications (Tech Drawing)</td></tr>
-          <tr><td>Music</td><td>Digital Technology Communications (Excel, Photoshop)</td></tr>
-          <tr><td>History</td><td>Media Studies</td></tr>
+          <tr>
+            <td>Level 1 NCEA — 2022</td>
+            <td>
+              English<br>
+              Maths Pure<br>
+              Digital Technology Development & Coding<br>
+              Design & Visual Communication (Tech Drawing)<br>
+              Music<br>
+              History
+            </td>
+          </tr>
+
+          <tr>
+            <td>Level 2 NCEA — 2023</td>
+            <td>
+              English<br>
+              Maths Pure<br>
+              Digital Technology Development & Coding<br>
+              Digital Technology Communications (Excel, Photoshop)<br>
+              Media Studies
+            </td>
+          </tr>
         </tbody>
       </table>
     </section>
-    
+
   </main>
+
+  <footer class="site-footer">
+    <div class="container foot">
+      <span>© 2025 Luke Scammell</span>
+      <span>Built with pure HTML + CSS (no JS)</span>
+    </div>
+  </footer>
+
 </body>
 </html>
