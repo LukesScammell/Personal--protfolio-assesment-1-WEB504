@@ -349,3 +349,35 @@ input:focus-visible,textarea:focus-visible{
     flex-direction:column;
   }
 }
+/* ---------------------------------------------------------
+   Skill Bars (Neon)
+   --------------------------------------------------------- */
+
+.bar {
+  width: 100%;
+  height: 14px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  position: relative;
+}
+
+.bar span {
+  display: block;
+  height: 100%;
+  width: var(--level);
+  background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+  box-shadow:
+    0 0 10px rgba(76,201,240,.7),
+    0 0 16px rgba(114,9,183,.5),
+    0 0 22px rgba(247,37,133,.45);
+  border-radius: inherit;
+}
+.skills-groups {
+  display: grid;
+  gap: var(--space-xl);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  margin-top: var(--space-xl);
+}
+
